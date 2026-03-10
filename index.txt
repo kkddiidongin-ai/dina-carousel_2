@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>DINA PMS Carousel</title>
+
+<style>
+
+body{
+margin:0;
+background:#111;
+display:flex;
+justify-content:center;
+align-items:center;
+height:100vh;
+font-family:sans-serif;
+}
+
+.carousel{
+position:relative;
+width:420px;
+max-width:95vw;
+overflow:hidden;
+border-radius:16px;
+box-shadow:0 20px 40px rgba(0,0,0,0.4);
+}
+
+.slides{
+display:flex;
+transition:transform 0.4s ease;
+}
+
+.slide{
+min-width:100%;
+position:relative;
+}
+
+.slide img{
+width:100%;
+display:block;
+}
+
+.nav{
+position:absolute;
+top:50%;
+transform:translateY(-50%);
+background:rgba(0,0,0,0.4);
+border:none;
+color:white;
+font-size:22px;
+padding:10px 14px;
+cursor:pointer;
+z-index:10;
+}
+
+.prev{left:10px;}
+.next{right:10px;}
+
+.dots{
+position:absolute;
+bottom:15px;
+width:100%;
+display:flex;
+justify-content:center;
+gap:6px;
+}
+
+.dot{
+width:8px;
+height:8px;
+border-radius:50%;
+background:#bbb;
+}
+
+.dot.active{
+background:white;
+}
+
+.cta{
+position:absolute;
+bottom:30px;
+left:50%;
+transform:translateX(-50%);
+background:#7b2d2d;
+color:white;
+padding:12px 22px;
+border-radius:30px;
+font-weight:bold;
+font-size:14px;
+text-decoration:none;
+box-shadow:0 4px 12px rgba(0,0,0,0.3);
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="carousel">
+
+<div class="slides" id="slides">
+
+<div class="slide">
+<img src="1.jpg">
+</div>
+
+<div class="slide">
+<img src="2.jpg">
+</div>
+
+<div class="slide">
+<img src="3.jpg">
+</div>
+
+<div class="slide">
+<img src="4.jpg">
+</div>
+
+<div class="slide">
+<img src="5.jpg">
+
+<a class="cta"
+href="https://docs.google.com/forms/d/e/1FAIpQLSecbytuFqNg5n5QpVEzIQ7TXK-Txq6WlvvTigVWoW7q4Bt_zA/viewform?usp=publish-editor"
+target="_blank">
+DINA와 파트너십 시작하기
+</a>
+
+</div>
+
+</div>
+
+<button class="nav prev" onclick="prev()">‹</button>
+<button class="nav next" onclick="next()">›</button>
+
+<div class="dots" id="dots"></div>
+
+</div>
+
+<script>
+
+let index=0
+const slides=document.getElementById("slides")
+const total=5
+
+const dots=document.getElementById("dots")
+
+for(let i=0;i<total;i++){
+let d=document.createElement("div")
+d.classList.add("dot")
+if(i===0)d.classList.add("active")
+dots.appendChild(d)
+}
+
+function update(){
+slides.style.transform=`translateX(-${index*100}%)`
+document.querySelectorAll(".dot").forEach((d,i)=>{
+d.classList.toggle("active",i===index)
+})
+}
+
+function next(){
+index=(index+1)%total
+update()
+}
+
+function prev(){
+index=(index-1+total)%total
+update()
+}
+
+</script>
+
+</body>
+</html>
